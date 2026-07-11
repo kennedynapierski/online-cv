@@ -23,11 +23,11 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// ---- Auto-fill galleries and carousels from sequentially named images ----
+// ---- Auto-fill galleries and carousels from images in a subfolder ----
 // A container with data-seq="images/little-mermaid" loads
-//   little-mermaid-1.jpg, little-mermaid-2.jpg, ... until one is missing.
+//   images/little-mermaid/1.jpg, images/little-mermaid/2.jpg, ... until one is missing.
 // Supports .jpg, .jpeg, .png. Empty containers stay hidden (see CSS :empty).
-// Just drop photos in /images named <prefix>-1, <prefix>-2, ... (no gaps).
+// Just drop photos in the matching subfolder named 1, 2, 3, ... (no gaps).
 function loadSequence(container) {
   const base = container.getAttribute('data-seq');
   const alt = container.getAttribute('data-alt') || '';
@@ -50,7 +50,7 @@ function loadSequence(container) {
       }
       // else: no image at this index in any format -> stop for this container.
     };
-    probe.src = base + '-' + index + '.' + exts[extIdx];
+    probe.src = base + '/' + index + '.' + exts[extIdx];
   }
   tryLoad(0);
 }
