@@ -22,3 +22,36 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ---- Auto-fill galleries and carousels from sequentially named images ----
+// A container with data-seq="images/little-mermaid" loads
+//   little-mermaid-1.jpg, little-mermaid-2.jpg, ... until one is missing.
+// Supports .jpg, .jpeg, .png. Empty containers stay hidden (see CSS :empty).
+// Just drop photos in /images named <prefix>-1, <prefix>-2, ... (no gaps).
+function loadSequence(container) {
+  const base = container.getAttribute('data-seq');
+  const alt = container.getAttribute('data-alt') || '';
+  const exts = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+  let index = 1;
+  function tryLoad(extIdx) {
+    const probe = new Image();
+    probe.onload = () => {
+      const img = document.createElement('img');
+      img.src = probe.src;
+      img.alt = alt;
+      img.loading = 'lazy';
+      container.appendChild(img);
+      index++;
+      tryLoad(0);
+    };
+    probe.onerror = () => {
+      if (extIdx < exts.length - 1) {
+        tryLoad(extIdx + 1);
+      }
+      // else: no image at this index in any format -> stop for this container.
+    };
+    probe.src = base + '-' + index + '.' + exts[extIdx];
+  }
+  tryLoad(0);
+}
+document.querySelectorAll('[data-seq]').forEach(loadSequence);

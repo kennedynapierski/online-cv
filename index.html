@@ -102,20 +102,8 @@
 <!-- GALLERY -->
 <section id="gallery">
   <div class="wrap">
-    <div class="gallery reveal">
-      <img src="images/01.jpg" alt="Fiddler on the Roof cast" loading="lazy">
-      <img src="images/02.jpg" alt="Cast on set" loading="lazy">
-      <img src="images/03.jpg" alt="Theatre team" loading="lazy">
-      <img src="images/04.jpg" alt="Backstage moment" loading="lazy">
-      <img src="images/05.jpg" alt="Kennedy at a theatre educator workshop" loading="lazy">
-      <img src="images/07.jpg" alt="Seussical lobby" loading="lazy">
-      <img src="images/08.jpg" alt="Cast in the theatre" loading="lazy">
-      <img src="images/09.jpg" alt="Tarzan cast" loading="lazy">
-      <img src="images/10.jpg" alt="Backstage, in costume" loading="lazy">
-      <img src="images/13.jpg" alt="Company silhouettes" loading="lazy">
-      <img src="images/16.jpg" alt="Backstage with the team" loading="lazy">
-      <img src="images/17.jpg" alt="Shakespeare Competition team" loading="lazy">
-    </div>
+    <!-- Auto-fills from images/gallery-1.jpg, gallery-2.jpg, ... (any number). Hidden if none exist. -->
+    <div class="gallery reveal" data-seq="images/gallery" data-alt="Kennedy Napierski theatre"></div>
     <p class="reveal" style="text-align:center;margin-top:26px;color:var(--muted);font-size:.85rem;font-style:italic">Photos with minors have permission from parents to be shared.</p>
   </div>
 </section>
@@ -128,95 +116,106 @@
       <h2>A director's record</h2>
       <p>Casting, blocking, script work, and creative-team leadership across musicals, plays, and competition pieces.</p>
     </div>
+
+    <!-- SHOW POSTERS: 5 mainstage Timpview productions. Save posters to images/poster-1.jpg ... poster-5.jpg -->
+    <div class="posters reveal">
+      <figure class="poster"><img src="images/poster-1.jpg" alt="Seussical the Musical poster" onerror="this.style.display='none'"><figcaption>Seussical the Musical</figcaption></figure>
+      <figure class="poster"><img src="images/poster-2.jpg" alt="The Woodsman poster" onerror="this.style.display='none'"><figcaption>The Woodsman</figcaption></figure>
+      <figure class="poster"><img src="images/poster-3.jpg" alt="The Little Mermaid poster" onerror="this.style.display='none'"><figcaption>The Little Mermaid</figcaption></figure>
+      <figure class="poster"><img src="images/poster-4.jpg" alt="Almost, Maine poster" onerror="this.style.display='none'"><figcaption>Almost, Maine</figcaption></figure>
+      <figure class="poster"><img src="images/poster-5.jpg" alt="The Addams Family poster" onerror="this.style.display='none'"><figcaption>The Addams Family</figcaption></figure>
+    </div>
+
     <div class="reveal">
       <div class="prod">
         <div class="prod-year">2026</div>
-        <div><h3>Readers Theatre</h3><div class="venue">Timpview High School</div>
-          <ul><li>Student casted</li><li>Led daily blocking rehearsals</li><li>Assisted in costume construction</li></ul>
-        </div>
-      </div>
-      <div class="prod">
-        <div class="prod-year">2026<div class="badge">Double Cast</div></div>
-        <div><h3>Almost, Maine</h3><div class="venue">Timpview High School</div>
-          <ul><li>Held auditions and made final casting choices · Led daily blocking rehearsals</li><li>Coordinated and facilitated technical build · Assisted in costume construction</li><li>Organized marketing procedures</li></ul>
+        <div><h3>The Addams Family: School Edition</h3><div class="venue">Timpview High School</div>
+          <ul><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li><li>Assisted in costume construction · Photographed production photos</li><li>Organized marketing procedures</li><li>Led a creative team: Technical Director, Choreographer, and Music Director</li></ul>
+          <div class="carousel" data-seq="images/addams" data-alt="The Addams Family"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2026<div class="badge">1st in State</div></div>
         <div><h3>26 Pebbles</h3><div class="venue">Timpview High School</div>
           <ul><li>Cut, edited, and revised script for competition standards</li><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li></ul>
+          <div class="carousel" data-seq="images/pebbles" data-alt="26 Pebbles"></div>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="prod-year">2026<div class="badge">Double Cast</div></div>
+        <div><h3>Almost, Maine</h3><div class="venue">Timpview High School</div>
+          <ul><li>Held auditions and made final casting choices · Led daily blocking rehearsals</li><li>Coordinated and facilitated technical build · Assisted in costume construction</li><li>Organized marketing procedures</li></ul>
+          <div class="carousel" data-seq="images/almost-maine" data-alt="Almost, Maine"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2026</div>
-        <div><h3>The Addams Family: School Edition</h3><div class="venue">Timpview High School</div>
-          <ul><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li><li>Assisted in costume construction · Photographed production photos</li><li>Organized marketing procedures</li><li>Led a creative team: Technical Director, Choreographer, and Music Director</li></ul>
+        <div><h3>Readers Theatre</h3><div class="venue">Timpview High School</div>
+          <ul><li>Student casted</li><li>Led daily blocking rehearsals</li><li>Assisted in costume construction</li></ul>
+          <div class="carousel" data-seq="images/readers-2026" data-alt="Readers Theatre"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2025</div>
         <div><h3>The Little Mermaid</h3><div class="venue">Timpview High School</div>
           <ul><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li><li>Assisted in costume construction</li><li>Organized marketing procedures</li><li>Led a creative team: Technical Director, Choreographer, and Music Director</li></ul>
-          <!-- PHOTO 06: The Little Mermaid — mersisters in pink floral gowns, stone cottage set -->
-          <div class="prod-imgs">
-            <img style="width:300px;height:200px" src="images/06.jpg" alt="The Little Mermaid" loading="lazy">
-          </div>
+          <div class="carousel" data-seq="images/little-mermaid" data-alt="The Little Mermaid"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2025<div class="badge">4th Place</div></div>
         <div><h3>Shakespeare Competition</h3><div class="venue">Timpview High School</div>
           <ul><li>Cut, edited, and revised script for competition standards</li><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li></ul>
-          <!-- PHOTO 12: Shakespeare — ensemble in all black on the Globe-style set -->
-          <div class="prod-imgs">
-            <img style="width:300px;height:200px" src="images/12.jpg" alt="Shakespeare Competition" loading="lazy">
-          </div>
+          <div class="carousel" data-seq="images/shakespeare-2025" data-alt="Shakespeare Competition"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2025<div class="badge">First HS to Perform</div></div>
         <div><h3>The Woodsman</h3><div class="venue">Timpview High School</div>
           <ul><li>Held auditions and made final casting choices · Led daily blocking rehearsals</li><li>Coordinated and facilitated technical build · Assisted in costume construction</li><li>Organized marketing procedures</li><li>Led a creative team: Choreographer and Music Director</li></ul>
+          <div class="carousel" data-seq="images/woodsman" data-alt="The Woodsman"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2025</div>
         <div><h3>Readers Theatre</h3><div class="venue">Timpview High School</div>
           <ul><li>Student casted · Led daily blocking rehearsals</li><li>Assisted in costume construction</li></ul>
+          <div class="carousel" data-seq="images/readers-2025" data-alt="Readers Theatre"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2025<div class="badge">3rd · Region</div></div>
         <div><h3>Yellow Boat</h3><div class="venue">Timpview High School</div>
           <ul><li>Cut, edited, and revised script for competition standards</li><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li></ul>
+          <div class="carousel" data-seq="images/yellow-boat" data-alt="Yellow Boat"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2024</div>
         <div><h3>Seussical the Musical</h3><div class="venue">Timpview High School</div>
           <ul><li>Held auditions and made final casting choices · Led daily blocking rehearsals</li><li>Coordinated and facilitated technical build · Assisted in costume construction</li><li>Organized marketing procedures · Led a creative team: Choreographer and Music Director</li></ul>
-          <!-- PHOTO 11: Seussical — full cast selfie on stage with truffula trees -->
-          <div class="prod-imgs">
-            <img style="width:300px;height:200px" src="images/11.jpg" alt="Seussical the Musical cast" loading="lazy">
-          </div>
+          <div class="carousel" data-seq="images/seussical-2024" data-alt="Seussical the Musical"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2024<div class="badge">5th Place</div></div>
         <div><h3>Shakespeare Competition</h3><div class="venue">Timpview High School</div>
           <ul><li>Cut, edited, and revised script for competition standards</li><li>Held auditions and made final casting choices</li><li>Led daily blocking rehearsals</li></ul>
+          <div class="carousel" data-seq="images/shakespeare-2024" data-alt="Shakespeare Competition"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2023</div>
         <div><h3>Seussical the Musical</h3><div class="venue">American Fork</div>
           <ul><li>Held auditions and made final casting choices · Led daily blocking rehearsals</li><li>Coordinated and facilitated technical build · Assisted in costume construction</li><li>Photographed production photos · Organized marketing procedures</li></ul>
+          <div class="carousel" data-seq="images/seussical-af" data-alt="Seussical the Musical"></div>
         </div>
       </div>
       <div class="prod">
         <div class="prod-year">2023<div class="badge">Capstone</div></div>
         <div><h3>More Than an Image</h3><div class="venue">Original Devised Work</div>
           <ul><li>Adapted and cut the script</li><li>Held auditions and made final casting choices · Led weekly rehearsals</li><li>Coordinated production meetings with lighting, sound, costume, and dramaturg</li><li>Created scenic floor plan</li></ul>
+          <div class="carousel" data-seq="images/more-than-an-image" data-alt="More Than an Image"></div>
         </div>
       </div>
     </div>
@@ -256,11 +255,8 @@
             <ul><li>Analyzed script and created costumes for both acts, for each individual character</li><li>Picked a theme and incorporated the use of symbolism</li></ul>
           </div>
         </div>
-        <!-- PHOTO 15: Seussical bird girls (colorful bird makeup)  |  PHOTO 14: Into the Woods (green mason-jar lights) -->
-        <div class="tech-imgs">
-          <figure><img src="images/15.jpg" alt="Seussical bird girls" loading="lazy"><figcaption>Seussical — bird girls</figcaption></figure>
-          <figure><img src="images/14.jpg" alt="Into the Woods cast" loading="lazy"><figcaption>Into the Woods</figcaption></figure>
-        </div>
+        <!-- Costuming photos: images/costuming-1.jpg, costuming-2.jpg, ... -->
+        <div class="carousel" data-seq="images/costuming" data-alt="Costume design"></div>
       </div>
       <div class="cat">
         <h3>Makeup</h3>
