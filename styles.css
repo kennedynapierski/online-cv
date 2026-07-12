@@ -197,6 +197,15 @@ footer span{color:var(--rose)}
 .poster figcaption{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);text-align:center;line-height:1.4}
 @media(max-width:640px){.posters{grid-template-columns:repeat(2,1fr);gap:16px}}
 
+/* ---------- ACCOMPLISHMENTS / AWARDS ---------- */
+.awards{display:grid;gap:0;max-width:820px}
+.award{display:grid;grid-template-columns:130px 1fr;gap:28px;padding:24px 0;border-top:1px solid var(--line);align-items:baseline}
+.award:first-child{border-top:0}
+.award-year{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--rose)}
+.award h4{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--ink);margin-bottom:4px}
+.award p{color:var(--ink-soft);font-size:.98rem}
+@media(max-width:640px){.award{grid-template-columns:1fr;gap:6px}}
+
 /* ---------- CAROUSEL (per-show photo strips) ---------- */
 .carousel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:20px;padding-bottom:12px;-webkit-overflow-scrolling:touch}
 .carousel::-webkit-scrollbar{height:6px}
