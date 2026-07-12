@@ -47,8 +47,12 @@ function loadSequence(container) {
     probe.onerror = () => {
       if (extIdx < exts.length - 1) {
         tryLoad(extIdx + 1);
+      } else if (container.children.length === 0 && container.hasAttribute('data-hide-section-when-empty')) {
+        // No images found at all — hide the whole section so there's no empty band.
+        const section = container.closest('section');
+        if (section) section.style.display = 'none';
       }
-      // else: no image at this index in any format -> stop for this container.
+      // else: reached the end of this sequence -> stop.
     };
     probe.src = base + '/' + index + '.' + exts[extIdx];
   }
