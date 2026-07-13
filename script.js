@@ -60,42 +60,43 @@ function loadSequence(container) {
 }
 document.querySelectorAll('[data-seq]').forEach(loadSequence);
 
-// ---- Add prev/next scroll arrows to every non-empty carousel ----
-function addCarouselControls(car) {
-  if (!car.children.length) return;                 // skip empty ones
-  if (car.parentNode.classList.contains('carousel-wrap')) return; // already wrapped
-  const wrap = document.createElement('div');
-  wrap.className = 'carousel-wrap';
-  car.parentNode.insertBefore(wrap, car);
-  wrap.appendChild(car);
+// ---- Turn each non-empty carousel into a single-image viewer with arrows ----
+function initCarousel(car) {
+  const imgs = Array.prototype.slice.call(car.querySelectorAll('img'));
+  if (!imgs.length || car.dataset.slideReady) return;
+  car.dataset.slideReady = '1';
+  let idx = 0;
+  imgs.forEach((im, i) => im.classList.toggle('active', i === 0));
 
-  function makeBtn(dir, symbol) {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'carousel-btn ' + dir;
-    b.setAttribute('aria-label', dir === 'prev' ? 'Previous' : 'Next');
-    b.textContent = symbol;
-    b.addEventListener('click', () => {
-      const step = Math.max(car.clientWidth * 0.85, 260);
-      car.scrollBy({ left: dir === 'next' ? step : -step, behavior: 'smooth' });
-    });
-    wrap.appendChild(b);
-    return b;
-  }
-  const prev = makeBtn('prev', '‹');
-  const next = makeBtn('next', '›');
+  const count = document.createElement('div');
+  count.className = 'carousel-count';
+  count.textContent = '1 / ' + imgs.length;
+  car.appendChild(count);
 
-  function update() {
-    prev.disabled = car.scrollLeft <= 2;
-    next.disabled = car.scrollLeft + car.clientWidth >= car.scrollWidth - 2;
+  if (imgs.length > 1) {
+    const prev = document.createElement('button');
+    prev.type = 'button'; prev.className = 'carousel-btn prev';
+    prev.textContent = '‹'; prev.setAttribute('aria-label', 'Previous');
+    const next = document.createElement('button');
+    next.type = 'button'; next.className = 'carousel-btn next';
+    next.textContent = '›'; next.setAttribute('aria-label', 'Next');
+    car.appendChild(prev);
+    car.appendChild(next);
+
+    function show(i) {
+      imgs[idx].classList.remove('active');
+      idx = (i + imgs.length) % imgs.length;
+      imgs[idx].classList.add('active');
+      count.textContent = (idx + 1) + ' / ' + imgs.length;
+    }
+    prev.addEventListener('click', function (e) { e.stopPropagation(); show(idx - 1); });
+    next.addEventListener('click', function (e) { e.stopPropagation(); show(idx + 1); });
+  } else {
+    count.style.display = 'none';
   }
-  car.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
 }
-// run now, and again shortly after in case images/data-seq finished loading and changed widths
-document.querySelectorAll('.carousel').forEach(addCarouselControls);
-window.addEventListener('load', () => document.querySelectorAll('.carousel').forEach(addCarouselControls));
+document.querySelectorAll('.carousel').forEach(initCarousel);
+window.addEventListener('load', () => document.querySelectorAll('.carousel').forEach(initCarousel));
 
 // ---- Lightbox: click any carousel photo to view it full size ----
 (function () {
