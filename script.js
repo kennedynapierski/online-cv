@@ -96,3 +96,52 @@ function addCarouselControls(car) {
 // run now, and again shortly after in case images/data-seq finished loading and changed widths
 document.querySelectorAll('.carousel').forEach(addCarouselControls);
 window.addEventListener('load', () => document.querySelectorAll('.carousel').forEach(addCarouselControls));
+
+// ---- Lightbox: click any carousel photo to view it full size ----
+(function () {
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML =
+    '<button class="lb-close" aria-label="Close">×</button>' +
+    '<button class="lb-nav lb-prev" aria-label="Previous">‹</button>' +
+    '<img alt="">' +
+    '<button class="lb-nav lb-next" aria-label="Next">›</button>' +
+    '<div class="lb-count"></div>';
+  document.body.appendChild(lb);
+  const lbImg = lb.querySelector('img');
+  const lbCount = lb.querySelector('.lb-count');
+  let group = [], idx = 0;
+
+  function render() {
+    lbImg.src = group[idx].currentSrc || group[idx].src;
+    lbCount.textContent = (idx + 1) + ' / ' + group.length;
+  }
+  function open(imgs, i) {
+    group = imgs; idx = i; render();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function step(d) { idx = (idx + d + group.length) % group.length; render(); }
+
+  // delegated click so it also works for images added dynamically
+  document.addEventListener('click', function (e) {
+    const im = e.target.closest('.carousel img');
+    if (!im) return;
+    const imgs = Array.prototype.slice.call(im.closest('.carousel').querySelectorAll('img'));
+    open(imgs, imgs.indexOf(im));
+  });
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+  lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === lbImg) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'ArrowRight') step(1);
+  });
+})();
