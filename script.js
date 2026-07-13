@@ -60,19 +60,40 @@ function loadSequence(container) {
 }
 document.querySelectorAll('[data-seq]').forEach(loadSequence);
 
-// ---- Turn each non-empty carousel into a single-image viewer with arrows ----
+// ---- Build a viewer + thumbnail rail for each non-empty carousel ----
 function initCarousel(car) {
   const imgs = Array.prototype.slice.call(car.querySelectorAll('img'));
   if (!imgs.length || car.dataset.slideReady) return;
   car.dataset.slideReady = '1';
   let idx = 0;
-  imgs.forEach((im, i) => im.classList.toggle('active', i === 0));
+
+  // main stage: move the images in and show the first
+  const stage = document.createElement('div');
+  stage.className = 'carousel-stage';
+  imgs.forEach(function (im, i) { stage.appendChild(im); im.classList.toggle('active', i === 0); });
 
   const count = document.createElement('div');
   count.className = 'carousel-count';
   count.textContent = '1 / ' + imgs.length;
-  car.appendChild(count);
+  stage.appendChild(count);
+  car.appendChild(stage);
 
+  const thumbBtns = [];
+
+  function show(i) {
+    imgs[idx].classList.remove('active');
+    if (thumbBtns[idx]) thumbBtns[idx].classList.remove('active');
+    idx = (i + imgs.length) % imgs.length;
+    imgs[idx].classList.add('active');
+    count.textContent = (idx + 1) + ' / ' + imgs.length;
+    if (thumbBtns[idx]) {
+      thumbBtns[idx].classList.add('active');
+      const t = thumbBtns[idx];
+      thumbs.scrollTo({ left: t.offsetLeft - thumbs.clientWidth / 2 + t.clientWidth / 2, behavior: 'smooth' });
+    }
+  }
+
+  var thumbs = null;
   if (imgs.length > 1) {
     const prev = document.createElement('button');
     prev.type = 'button'; prev.className = 'carousel-btn prev';
@@ -80,17 +101,27 @@ function initCarousel(car) {
     const next = document.createElement('button');
     next.type = 'button'; next.className = 'carousel-btn next';
     next.textContent = '›'; next.setAttribute('aria-label', 'Next');
-    car.appendChild(prev);
-    car.appendChild(next);
-
-    function show(i) {
-      imgs[idx].classList.remove('active');
-      idx = (i + imgs.length) % imgs.length;
-      imgs[idx].classList.add('active');
-      count.textContent = (idx + 1) + ' / ' + imgs.length;
-    }
+    stage.appendChild(prev);
+    stage.appendChild(next);
     prev.addEventListener('click', function (e) { e.stopPropagation(); show(idx - 1); });
     next.addEventListener('click', function (e) { e.stopPropagation(); show(idx + 1); });
+
+    // thumbnail rail
+    thumbs = document.createElement('div');
+    thumbs.className = 'carousel-thumbs';
+    imgs.forEach(function (im, i) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'View photo ' + (i + 1));
+      const t = document.createElement('img');
+      t.src = im.src; t.alt = ''; t.loading = 'lazy';
+      b.appendChild(t);
+      if (i === 0) b.classList.add('active');
+      b.addEventListener('click', function () { show(i); });
+      thumbs.appendChild(b);
+      thumbBtns.push(b);
+    });
+    car.appendChild(thumbs);
   } else {
     count.style.display = 'none';
   }
@@ -128,11 +159,11 @@ window.addEventListener('load', () => document.querySelectorAll('.carousel').for
   }
   function step(d) { idx = (idx + d + group.length) % group.length; render(); }
 
-  // delegated click so it also works for images added dynamically
+  // delegated click: only the big stage image opens the lightbox (thumbnails just switch)
   document.addEventListener('click', function (e) {
-    const im = e.target.closest('.carousel img');
+    const im = e.target.closest('.carousel-stage img');
     if (!im) return;
-    const imgs = Array.prototype.slice.call(im.closest('.carousel').querySelectorAll('img'));
+    const imgs = Array.prototype.slice.call(im.closest('.carousel-stage').querySelectorAll('img'));
     open(imgs, imgs.indexOf(im));
   });
   lb.querySelector('.lb-close').addEventListener('click', close);
