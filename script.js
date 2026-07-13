@@ -59,3 +59,40 @@ function loadSequence(container) {
   tryLoad(0);
 }
 document.querySelectorAll('[data-seq]').forEach(loadSequence);
+
+// ---- Add prev/next scroll arrows to every non-empty carousel ----
+function addCarouselControls(car) {
+  if (!car.children.length) return;                 // skip empty ones
+  if (car.parentNode.classList.contains('carousel-wrap')) return; // already wrapped
+  const wrap = document.createElement('div');
+  wrap.className = 'carousel-wrap';
+  car.parentNode.insertBefore(wrap, car);
+  wrap.appendChild(car);
+
+  function makeBtn(dir, symbol) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'carousel-btn ' + dir;
+    b.setAttribute('aria-label', dir === 'prev' ? 'Previous' : 'Next');
+    b.textContent = symbol;
+    b.addEventListener('click', () => {
+      const step = Math.max(car.clientWidth * 0.85, 260);
+      car.scrollBy({ left: dir === 'next' ? step : -step, behavior: 'smooth' });
+    });
+    wrap.appendChild(b);
+    return b;
+  }
+  const prev = makeBtn('prev', '‹');
+  const next = makeBtn('next', '›');
+
+  function update() {
+    prev.disabled = car.scrollLeft <= 2;
+    next.disabled = car.scrollLeft + car.clientWidth >= car.scrollWidth - 2;
+  }
+  car.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+// run now, and again shortly after in case images/data-seq finished loading and changed widths
+document.querySelectorAll('.carousel').forEach(addCarouselControls);
+window.addEventListener('load', () => document.querySelectorAll('.carousel').forEach(addCarouselControls));
