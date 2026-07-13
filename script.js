@@ -72,6 +72,11 @@ function initCarousel(car) {
   stage.className = 'carousel-stage';
   imgs.forEach(function (im, i) { stage.appendChild(im); im.classList.toggle('active', i === 0); });
 
+  const bg = document.createElement('div');
+  bg.className = 'stage-bg';
+  bg.style.backgroundImage = 'url("' + imgs[0].src + '")';
+  stage.appendChild(bg);
+
   const count = document.createElement('div');
   count.className = 'carousel-count';
   count.textContent = '1 / ' + imgs.length;
@@ -85,6 +90,7 @@ function initCarousel(car) {
     if (thumbBtns[idx]) thumbBtns[idx].classList.remove('active');
     idx = (i + imgs.length) % imgs.length;
     imgs[idx].classList.add('active');
+    bg.style.backgroundImage = 'url("' + imgs[idx].src + '")';
     count.textContent = (idx + 1) + ' / ' + imgs.length;
     if (thumbBtns[idx]) {
       thumbBtns[idx].classList.add('active');

@@ -99,6 +99,7 @@ section{padding:100px 44px;position:relative}
 /* ---------- PRODUCTIONS ---------- */
 .prod{display:grid;grid-template-columns:180px 1fr;gap:34px;padding:36px 0;border-top:1px solid var(--line)}
 .prod:first-of-type{border-top:0}
+.prod>div{min-width:0}
 .prod-year{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--rose)}
 .prod-year .badge{display:inline-block;margin-top:10px;margin-left:14px;font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--sage);border:1px solid var(--line);border-radius:20px;padding:4px 12px}
 .prod h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:500;margin-bottom:4px;color:var(--ink)}
@@ -213,8 +214,9 @@ footer span{color:var(--rose)}
 .carousel{margin-top:22px}
 .carousel:empty,.gallery:empty{display:none}
 .carousel img{display:none}
-.carousel-stage{position:relative;height:460px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 10px 26px rgba(120,90,95,0.14);display:flex;align-items:center;justify-content:center}
-.carousel-stage img{max-width:100%;max-height:100%;width:auto;height:auto;cursor:zoom-in}
+.carousel-stage{position:relative;height:460px;background:#efe7e2;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 10px 26px rgba(120,90,95,0.14);display:flex;align-items:center;justify-content:center}
+.stage-bg{position:absolute;inset:-4px;background-size:cover;background-position:center;filter:blur(32px) brightness(0.96);transform:scale(1.15);opacity:.42;z-index:0;pointer-events:none}
+.carousel-stage img{position:relative;z-index:1;max-width:100%;max-height:100%;width:auto;height:auto;cursor:zoom-in}
 .carousel-stage img.active{display:block}
 .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,0.92);color:var(--rose-deep);font-family:'Poppins',sans-serif;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 5px 16px rgba(120,90,95,0.22);z-index:5;transition:background .2s ease}
 .carousel-btn:hover{background:#fff}
